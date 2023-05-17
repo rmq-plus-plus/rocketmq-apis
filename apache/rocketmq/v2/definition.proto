@@ -21,6 +21,7 @@ import "google/protobuf/duration.proto";
 package apache.rocketmq.v2;
 
 option csharp_namespace = "Apache.Rocketmq.V2";
+option go_package = "github.com/apache/rocketmq/v2";
 option java_multiple_files = true;
 option java_package = "apache.rocketmq.v2";
 option java_generate_equals_and_hash = true;
@@ -198,7 +199,7 @@ enum Encoding {
 
 message SystemProperties {
   // Tag, which is optional.
-  optional string tag = 1;
+  string tag = 1;
 
   // Message keys
   repeated string keys = 2;
@@ -225,51 +226,51 @@ message SystemProperties {
 
   // Time-point at which the message is stored in the broker, which is absent
   // for message publishing.
-  optional google.protobuf.Timestamp store_timestamp = 9;
+  google.protobuf.Timestamp store_timestamp = 9;
 
   // The broker that stores this message. It may be broker name, IP or arbitrary
   // identifier that uniquely identify the server.
   string store_host = 10;
 
   // Time-point at which broker delivers to clients, which is optional.
-  optional google.protobuf.Timestamp delivery_timestamp = 11;
+  google.protobuf.Timestamp delivery_timestamp = 11;
 
   // If a message is acquired by way of POP, this field holds the receipt,
   // which is absent for message publishing.
   // Clients use the receipt to acknowledge or negatively acknowledge the
   // message.
-  optional string receipt_handle = 12;
+  string receipt_handle = 12;
 
   // Message queue identifier in which a message is physically stored.
   int32 queue_id = 13;
 
   // Message-queue offset at which a message is stored, which is absent for
   // message publishing.
-  optional int64 queue_offset = 14;
+  int64 queue_offset = 14;
 
   // Period of time servers would remain invisible once a message is acquired.
-  optional google.protobuf.Duration invisible_duration = 15;
+  google.protobuf.Duration invisible_duration = 15;
 
   // Business code may failed to process messages for the moment. Hence, clients
   // may request servers to deliver them again using certain back-off strategy,
   // the attempt is 1 not 0 if message is delivered first time, and it is absent
   // for message publishing.
-  optional int32 delivery_attempt = 16;
+  int32 delivery_attempt = 16;
 
   // Define the group name of message in the same topic, which is optional.
-  optional string message_group = 17;
+  string message_group = 17;
 
   // Trace context for each message, which is optional.
-  optional string trace_context = 18;
+  string trace_context = 18;
 
   // If a transactional message stay unresolved for more than
   // `transaction_orphan_threshold`, it would be regarded as an
   // orphan. Servers that manages orphan messages would pick up
   // a capable publisher to resolve
-  optional google.protobuf.Duration orphaned_transaction_recovery_duration = 19;
+  google.protobuf.Duration orphaned_transaction_recovery_duration = 19;
 
   // Information to identify whether this message is from dead letter queue.
-  optional DeadLetterQueue dead_letter_queue = 20;
+  DeadLetterQueue dead_letter_queue = 20;
 }
 
 message DeadLetterQueue {
@@ -472,9 +473,9 @@ message UA {
 
 message Settings {
   // Configurations for all clients.
-  optional ClientType client_type = 1;
+  ClientType client_type = 1;
 
-  optional Endpoints access_point = 2;
+  Endpoints access_point = 2;
 
   // If publishing of messages encounters throttling or server internal errors,
   // publishers should implement automatic retries after progressive longer
@@ -486,10 +487,10 @@ message Settings {
   // For FIFO messages, the interval should be relatively small because
   // messages of the same message group would not be readily available until
   // the prior one depletes its lifecycle.
-  optional RetryPolicy backoff_policy = 3;
+  RetryPolicy backoff_policy = 3;
 
   // Request timeout for RPCs excluding long-polling.
-  optional google.protobuf.Duration request_timeout = 4;
+  google.protobuf.Duration request_timeout = 4;
 
   oneof pub_sub {
     Publishing publishing = 5;
@@ -525,7 +526,7 @@ message Subscription {
   // unnecessary for server to push at present.
   //
   // Consumer group.
-  optional Resource group = 1;
+  Resource group = 1;
 
   // Subscription for consumer.
   repeated SubscriptionEntry subscriptions = 2;
@@ -538,14 +539,14 @@ message Subscription {
   //
   // Brokers will not deliver further messages of the same group until prior
   // ones are completely acknowledged.
-  optional bool fifo = 3;
+  bool fifo = 3;
 
   // Message receive batch size here is essential for push consumer.
-  optional int32 receive_batch_size = 4;
+  int32 receive_batch_size = 4;
 
   // Long-polling timeout for `ReceiveMessageRequest`, which is essential for
   // push consumer.
-  optional google.protobuf.Duration long_polling_timeout = 5;
+  google.protobuf.Duration long_polling_timeout = 5;
 }
 
 message Metric {
@@ -553,7 +554,7 @@ message Metric {
   bool on = 1;
 
   // The endpoint that client metrics should be exported to, which is required if the switch is on.
-  optional Endpoints endpoints = 2;
+  Endpoints endpoints = 2;
 }
 
 enum QueryOffsetPolicy {

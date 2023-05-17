@@ -23,6 +23,7 @@ import "apache/rocketmq/v2/definition.proto";
 package apache.rocketmq.v2;
 
 option csharp_namespace = "Apache.Rocketmq.V2";
+option go_package = "github.com/apache/rocketmq/v2";
 option java_multiple_files = true;
 option java_package = "apache.rocketmq.v2";
 option java_generate_equals_and_hash = true;
@@ -93,11 +94,11 @@ message ReceiveMessageRequest {
   FilterExpression filter_expression = 3;
   int32 batch_size = 4;
   // Required if client type is simple consumer.
-  optional google.protobuf.Duration invisible_duration = 5;
+  google.protobuf.Duration invisible_duration = 5;
   // For message auto renew and clean
   bool auto_renew = 6;
-  optional google.protobuf.Duration long_polling_timeout = 7;
-  optional string attempt_id = 8;
+  google.protobuf.Duration long_polling_timeout = 7;
+  string attempt_id = 8;
 }
 
 message ReceiveMessageResponse {
@@ -151,7 +152,7 @@ message ForwardMessageToDeadLetterQueueRequest {
 message ForwardMessageToDeadLetterQueueResponse { Status status = 1; }
 
 message HeartbeatRequest {
-  optional Resource group = 1;
+  Resource group = 1;
   ClientType client_type = 2;
 }
 
@@ -172,7 +173,7 @@ message PrintThreadStackTraceCommand { string nonce = 1; }
 
 message ThreadStackTrace {
   string nonce = 1;
-  optional string thread_stack_trace = 2;
+  string thread_stack_trace = 2;
 }
 
 message VerifyMessageCommand {
@@ -190,7 +191,7 @@ message RecoverOrphanedTransactionCommand {
 }
 
 message TelemetryCommand {
-  optional Status status = 1;
+  Status status = 1;
 
   oneof command {
     // Client settings
@@ -219,7 +220,7 @@ message TelemetryCommand {
 
 message NotifyClientTerminationRequest {
   // Consumer group, which is absent for producer.
-  optional Resource group = 1;
+  Resource group = 1;
 }
 
 message NotifyClientTerminationResponse { Status status = 1; }
@@ -285,7 +286,7 @@ message GetOffsetResponse {
 message QueryOffsetRequest {
   MessageQueue message_queue = 1;
   QueryOffsetPolicy query_offset_policy = 2;
-  optional google.protobuf.Timestamp timestamp = 3;
+  google.protobuf.Timestamp timestamp = 3;
 }
 
 message QueryOffsetResponse {

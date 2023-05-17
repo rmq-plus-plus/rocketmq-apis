@@ -19,6 +19,7 @@ package apache.rocketmq.v2;
 
 option cc_enable_arenas = true;
 option csharp_namespace = "Apache.Rocketmq.V2";
+option go_package = "github.com/apache/rocketmq/v2";
 option java_multiple_files = true;
 option java_package = "apache.rocketmq.v2";
 option java_generate_equals_and_hash = true;
